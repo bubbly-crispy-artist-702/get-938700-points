@@ -11,7 +11,11 @@ Fun fact: the title says 938,700 but the code actually lets you win at
 
 ## 🕹️ How to play it
 
-Open [arcade.makecode.com](https://arcade.makecode.com/), click **Import**,
+**▶️ Play it right now in your browser:**
+**[https://bubbly-crispy-artist-702.github.io/get-938700-points/](https://bubbly-crispy-artist-702.github.io/get-938700-points/)**
+
+Or if you want to see (and remix) the code: open
+[arcade.makecode.com](https://arcade.makecode.com/), click **Import**,
 then **Import URL**, and paste:
 
 **https://github.com/bubbly-crispy-artist-702/get-938700-points**

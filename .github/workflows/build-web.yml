@@ -1,0 +1,49 @@
+name: Build web
+
+# Recompiles the game's playable binary (assets/js/binary.js) from source
+# whenever the source changes, then commits the result so the GitHub Pages
+# game always matches the code. Pushes made with GITHUB_TOKEN do not trigger
+# workflows, so this cannot loop.
+
+on:
+  push:
+    paths:
+      - "main.ts"
+      - "main.blocks"
+      - "pxt.json"
+      - "tilemap.g.ts"
+      - "tilemap.g.jres"
+      - "assets.json"
+      - ".github/workflows/build-web.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build game to JavaScript
+        run: |
+          npx --yes makecode build -j
+          mkdir -p assets/js
+          cp built/binary.js assets/js/binary.js
+
+      - name: Commit rebuilt binary
+        run: |
+          git config user.name "bubbly-crispy-artist-702"
+          git config user.email "200813206+bubbly-crispy-artist-702@users.noreply.github.com"
+          git add assets/js/binary.js
+          if git diff --cached --quiet; then
+            echo "No binary changes to commit."
+          else
+            git commit -m "Auto-rebuild game binary [skip ci]"
+            git push
+          fi
